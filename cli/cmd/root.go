@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"os"
 	"regexp"
@@ -242,10 +243,16 @@ type proxyConfigOptions struct {
 	waitBeforeExitSeconds    uint64
 	ignoreCluster            bool // not validated by validate()
 	disableIdentity          bool
+	identitiyRequired        bool
 	disableTap               bool
 }
 
 func (options *proxyConfigOptions) validate() error {
+
+	if options.disableIdentity && options.identitiyRequired {
+		return errors.New("Identity must be enabled when  --identity-required=true")
+	}
+
 	if options.proxyVersion != "" && !alphaNumDashDot.MatchString(options.proxyVersion) {
 		return fmt.Errorf("%s is not a valid version", options.proxyVersion)
 	}

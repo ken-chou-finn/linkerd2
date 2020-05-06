@@ -112,6 +112,7 @@ type (
 		Trace                  *Trace        `json:"trace"`
 		UID                    int64         `json:"uid"`
 		WaitBeforeExitSeconds  uint64        `json:"waitBeforeExitSeconds"`
+		IdentityRequired       bool          `json:"identityRequired"`
 	}
 
 	// ProxyInit contains the fields to set the proxy-init container

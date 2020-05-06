@@ -187,6 +187,9 @@ const (
 	// ProxyVersionOverrideAnnotation can be used to override the proxy version config.
 	ProxyVersionOverrideAnnotation = ProxyConfigAnnotationsPrefix + "/proxy-version"
 
+	// ProxyRequireIdentityAnnotation can be used to override the proxy version config.
+	ProxyRequireIdentityAnnotation = ProxyConfigAnnotationsPrefix + "/proxy-require-identity"
+
 	// ProxyDisableIdentityAnnotation can be used to disable identity on the injected proxy.
 	ProxyDisableIdentityAnnotation = ProxyConfigAnnotationsPrefix + "/disable-identity"
 

@@ -113,6 +113,11 @@ sub-folders, or coming from stdin.`,
 	)
 
 	flags.BoolVar(
+		&options.identitiyRequired, "identity-required", options.identitiyRequired,
+		"Ensures that all incoming Proxy traffic is TLSed",
+	)
+
+	flags.BoolVar(
 		&options.disableTap, "disable-tap", options.disableTap,
 		"Disables resources from being tapped",
 	)
@@ -416,6 +421,10 @@ func (options *proxyConfigOptions) overrideConfigs(configs *cfg.All, overrideAnn
 	if options.disableIdentity {
 		configs.Global.IdentityContext = nil
 		overrideAnnotations[k8s.ProxyDisableIdentityAnnotation] = strconv.FormatBool(true)
+	}
+
+	if options.identitiyRequired {
+		overrideAnnotations[k8s.ProxyRequireIdentityAnnotation] = strconv.FormatBool(true)
 	}
 
 	if options.disableTap {

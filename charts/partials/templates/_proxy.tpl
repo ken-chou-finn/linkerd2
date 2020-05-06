@@ -38,6 +38,10 @@ env:
 - name: LINKERD2_PROXY_OUTBOUND_ROUTER_CAPACITY
   value: "10000"
 {{ end -}}
+{{ if .Values.global.proxy.identityRequired -}}
+- name: LINKERD2_PROXY_IDENTITY_REQUIRED
+  value: enabled
+{{ end -}}
 {{ if .Values.global.proxy.disableIdentity -}}
 - name: LINKERD2_PROXY_IDENTITY_DISABLED
   value: disabled

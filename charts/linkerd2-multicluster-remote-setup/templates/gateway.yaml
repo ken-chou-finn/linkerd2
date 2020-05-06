@@ -53,6 +53,7 @@ spec:
       annotations:
         {{.Values.createdByAnnotation}}: {{default (printf "linkerd/helm %s" .Values.linkerdVersion) .Values.cliVersion}}        
         linkerd.io/inject: enabled
+        config.linkerd.io/proxy-require-identity: "true"
       labels:
         app: {{.Values.gatewayName}}
     spec:
@@ -62,16 +63,6 @@ spec:
             name: nginx-configuration   
       containers:
         - name: nginx
-          readinessProbe:
-            failureThreshold: 7
-            httpGet:
-              path: {{.Values.probePath}}
-              port: {{.Values.probePort}}
-          livenessProbe:
-            httpGet:
-              path: {{.Values.probePath}}
-              port: {{.Values.probePort}}
-            initialDelaySeconds: 10  
           image: {{.Values.nginxImage}}:{{.Values.nginxImageVersion}}
           ports:
             - name: incoming-port
